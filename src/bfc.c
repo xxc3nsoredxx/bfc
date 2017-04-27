@@ -67,6 +67,7 @@ int main (int argc, char **argv) {
     fclose (src->file);
     free (src->insts);
     free (src->data);
+    free (src);
 
     return 0;
 }
