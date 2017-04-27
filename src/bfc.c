@@ -64,7 +64,6 @@ int main (int argc, char **argv) {
     src->data = (char *) calloc (data_size, 1);
 
     // Free all data from heap
-    free (src->name);
     fclose (src->file);
     free (src->insts);
     free (src->data);
