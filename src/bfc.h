@@ -13,6 +13,7 @@ typedef struct file_struct {
     char *name;
     FILE *file;
     instruction_t *insts;
+    char *data;
 } file_t;
 
 #endif
