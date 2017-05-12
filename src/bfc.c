@@ -76,13 +76,8 @@ int main (int argc, char **argv) {
     // Tells the linker where to jump execution to
     fprintf (out, "global _start\n");
 
-    // Initialize the bss section
-    fprintf (out, "section .bss:\n");
-    fprintf (out, "data: resb %d\n", data_size);
-    fprintf (out, "garbage: resb 1\n");
-
     // Initialize the text section
-    fprintf (out, "section .text:\n");
+    fprintf (out, "section .text\n");
     fprintf (out, "_start:\n");
 
     // Keep track of the number of loops and which number we're in
@@ -133,7 +128,7 @@ int main (int argc, char **argv) {
                 fprintf (out, ".garbage%d_end:\n", garbage_counter);
                 break;
             case LOOP_START:
-                fprintf (out, ".loop%d\n", current_loop);
+                fprintf (out, ".loop%d:\n", current_loop);
                 loop_counter++;
                 break;
             case LOOP_END:
@@ -149,6 +144,11 @@ int main (int argc, char **argv) {
     fprintf (out, "mov rax, 60\n");
     fprintf (out, "mov rdi, 0\n");
     fprintf (out, "syscall");
+
+    // Initialize the bss section
+    fprintf (out, "section .bss\n");
+    fprintf (out, "data: resb %d\n", data_size);
+    fprintf (out, "garbage: resb 1\n");
 
     // Free all data from heap
     fclose (src->file);
