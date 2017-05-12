@@ -99,6 +99,7 @@ int main (int argc, char **argv) {
                 break;
             case DEC:
                 fprintf (out, "sub BYTE [data + r15], 1\n");
+                break;
             case OUT:
                 fprintf (out, "mov rax, 1\n");
                 fprintf (out, "mov rdi, 1\n");
