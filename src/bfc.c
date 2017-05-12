@@ -57,6 +57,7 @@ int main (int argc, char **argv) {
         // If current_data = data_size, increment data_size
         if (current_data == data_size) data_size++;
         // If current_data < 0, error
+        printf ("Data Pointer at: %d\n", current_data);
         if (current_data < 0) break;
     }
 
