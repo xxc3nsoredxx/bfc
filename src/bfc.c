@@ -15,6 +15,10 @@ int main (int argc, char **argv) {
     int inst_count;
     int data_size;
     int current_data;
+    FILE *out;
+    int loop_counter;
+    int current_loop;
+    int garbage_counter;
 
     if (argc != 2) {
         printf ("Incorrect syntax\n");
@@ -63,11 +67,95 @@ int main (int argc, char **argv) {
 
     src->data = (char *) calloc (data_size, 1);
 
+    // Open the output file
+    out = fopen ("out.asm", "w");
+    if (!out) {
+        printf ("Unable to open output file!\n");
+    }
+
+    // Tells the linker where to jump execution to
+    fprintf (out, "global _start\n");
+
+    // Initialize the bss section
+    fprintf (out, "section .bss:\n");
+    fprintf (out, "data: resb %d\n", data_size);
+    fprintf (out, "garbage: resb 1\n");
+
+    // Initialize the text section
+    fprintf (out, "section .text:\n");
+    fprintf (out, "_start:\n");
+
+    // Keep track of the number of loops and which number we're in
+    loop_counter = 0;
+    current_loop = 0;
+    garbage_counter = 0;
+
+    // Loop through and write the instructions
+    for (int cx = 0; cx < inst_count; cx++) {
+        switch (*((src->insts) + cx)) {
+            case RIGHT:
+                fprintf (out, "inc r15\n");
+                break;
+            case LEFT:
+                fprintf (out, "dec r15\n");
+                break;
+            case INC:
+                fprintf (out, "add BYTE [data + r15], 1\n");
+                break;
+            case DEC:
+                fprintf (out, "sub BYTE [data + r15], 1\n");
+            case OUT:
+                fprintf (out, "mov rax, 1\n");
+                fprintf (out, "mov rdi, 1\n");
+                fprintf (out, "mov rsi, data\n");
+                fprintf (out, "add rsi, r15\n");
+                fprintf (out, "mov rdx, 1\n");
+                fprintf (out, "syscall\n");
+                break;
+            case IN:
+                fprintf (out, "mov rax, 0\n");
+                fprintf (out, "mov rdi, 0\n");
+                fprintf (out, "mov rsi, data\n");
+                fprintf (out, "add rsi, r15\n");
+                fprintf (out, "mov rdx, 1\n");
+                fprintf (out, "syscall\n");
+                fprintf (out, "cmp BYTE [data + r15], 0x0A\n");
+                fprintf (out, "jz .garbage%d_end\n", garbage_counter);
+                fprintf (out, "mov rdi, 0\n");
+                fprintf (out, "mov rsi, garbage\n");
+                fprintf (out, "mov rdx, 1\n");
+                fprintf (out, ".garbage%d:\n", garbage_counter);
+                fprintf (out, "mov rax, 0\n");
+                fprintf (out, "syscall\n");
+                fprintf (out, "cmp BYTE [garbage], 0x0A\n");
+                fprintf (out, "jz .garbage%d_end\n", garbage_counter);
+                fprintf (out, "jmp .garbage%d\n", garbage_counter);
+                fprintf (out, ".garbage%d_end:\n", garbage_counter);
+                break;
+            case LOOP_START:
+                fprintf (out, ".loop%d\n", current_loop);
+                loop_counter++;
+                break;
+            case LOOP_END:
+                fprintf (out, "mov rdx, [data + r15]\n");
+                fprintf (out, "jnz .loop%d\n", current_loop);
+                break;
+            default:
+                break;
+        }
+    }
+
+    // Write the exit code
+    fprintf (out, "mov rax, 60\n");
+    fprintf (out, "mov rdi, 0\n");
+    fprintf (out, "syscall");
+
     // Free all data from heap
     fclose (src->file);
     free (src->insts);
     free (src->data);
     free (src);
+    free (out);
 
     return 0;
 }
