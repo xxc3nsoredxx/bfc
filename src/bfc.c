@@ -83,6 +83,7 @@ int main (int argc, char **argv) {
                 printf ("%c : ]\n", inst);
                 break;
             default:
+                printf ("Weird, shouldn't get to this\n");
                 break;
         }
         printf ("Data size:       %d\n", data_size);
