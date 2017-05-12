@@ -44,6 +44,8 @@ int main (int argc, char **argv) {
     data_size = 1;
     current_data = 0;
     while (fscanf (src->file, "%c", &inst) == 1) {
+        // If instruction doesn't match one of the characters, skip
+        if ((inst != '>') || (inst != '<') || (inst != '+') || (inst != '-') || (inst != '.') || (inst != ',') || (inst != '[') || (inst != ']')) continue;
         // Make room for one more instruction
         inst_count++;
         src->insts = (instruction_t *) realloc (src->insts, inst_count * sizeof (instruction_t));
