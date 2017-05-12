@@ -145,7 +145,7 @@ int main (int argc, char **argv) {
     // Write the exit code
     fprintf (out, "mov rax, 60\n");
     fprintf (out, "mov rdi, 0\n");
-    fprintf (out, "syscall");
+    fprintf (out, "syscall\n");
 
     // Initialize the bss section
     fprintf (out, "section .bss\n");
