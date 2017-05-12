@@ -126,14 +126,16 @@ int main (int argc, char **argv) {
                 fprintf (out, "jz .garbage%d_end\n", garbage_counter);
                 fprintf (out, "jmp .garbage%d\n", garbage_counter);
                 fprintf (out, ".garbage%d_end:\n", garbage_counter);
+                garbage_counter++;
                 break;
             case LOOP_START:
-                fprintf (out, ".loop%d:\n", current_loop);
+                fprintf (out, ".loop%d:\n", loop_counter);
                 loop_counter++;
                 break;
             case LOOP_END:
                 fprintf (out, "mov rdx, [data + r15]\n");
                 fprintf (out, "jnz .loop%d\n", current_loop);
+                current_loop--;
                 break;
             default:
                 break;
