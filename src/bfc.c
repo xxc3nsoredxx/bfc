@@ -57,6 +57,34 @@ int main (int argc, char **argv) {
         // If current_data = data_size, increment data_size
         if (current_data == data_size) data_size++;
         // If current_data < 0, error
+        switch (*((src->insts)) + (inst_count - 1)) {
+            case RIGHT:
+                printf ("Instruction: >\n");
+                break;
+            case LEFT:
+                printf ("Instruction: <\n");
+                break;
+            case INC:
+                printf ("Instruction: +\n");
+                break;
+            case DEC:
+                printf ("Instruction: -\n");
+                break;
+            case OUT:
+                printf ("Instruction: .\n");
+                break;
+            case IN:
+                printf ("Instruction: ,\n");
+                break;
+            case LOOP_START:
+                printf ("Instruction: [\n");
+                break;
+            case LOOP_END:
+                printf ("Instruction: ]\n");
+                break;
+            default:
+                break;
+        }
         printf ("Data size:       %d\n", data_size);
         printf ("Data Pointer at: %d\n", current_data);
         if (current_data < 0) break;
