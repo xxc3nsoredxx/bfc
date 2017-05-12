@@ -63,37 +63,6 @@ int main (int argc, char **argv) {
         if (current_data == data_size) {
             data_size++;
         }
-        switch (*((src->insts) + (inst_count - 1))) {
-            case RIGHT:
-                printf ("%c : >\n", inst);
-                break;
-            case LEFT:
-                printf ("%c : <\n", inst);
-                break;
-            case INC:
-                printf ("%c : +\n", inst);
-                break;
-            case DEC:
-                printf ("%c : -\n", inst);
-                break;
-            case OUT:
-                printf ("%c : .\n", inst);
-                break;
-            case IN:
-                printf ("%c : ,\n", inst);
-                break;
-            case LOOP_START:
-                printf ("%c : [\n", inst);
-                break;
-            case LOOP_END:
-                printf ("%c : ]\n", inst);
-                break;
-            default:
-                printf ("Weird, shouldn't get to this\n");
-                break;
-        }
-        printf ("Data size:       %d\n", data_size);
-        printf ("Data Pointer at: %d\n", current_data);
         // If current_data < 0, error
         if (current_data < 0) {
             break;
