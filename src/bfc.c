@@ -92,6 +92,11 @@ int main (int argc, char **argv) {
 
     if (current_data < 0) {
         printf ("Error: Data pointer out of bounds\n");
+        // Free all data from heap
+        fclose (src->file);
+        free (src->insts);
+        free (src->data);
+        free (src);
         return -1;
     }
 
@@ -101,6 +106,12 @@ int main (int argc, char **argv) {
     out = fopen ("out.asm", "w");
     if (!out) {
         printf ("Unable to open output file!\n");
+        // Free all data from heap
+        fclose (src->file);
+        free (src->insts);
+        free (src->data);
+        free (src);
+        return -1;
     }
 
     // Tells the linker where to jump execution to
