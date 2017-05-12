@@ -63,8 +63,7 @@ int main (int argc, char **argv) {
         if (current_data == data_size) {
             data_size++;
         }
-        // If current_data < 0, error
-        switch (*((src->insts)) + (inst_count - 1)) {
+        switch (*((src->insts) + (inst_count - 1))) {
             case RIGHT:
                 printf ("%c : >\n", inst);
                 break;
@@ -95,6 +94,7 @@ int main (int argc, char **argv) {
         }
         printf ("Data size:       %d\n", data_size);
         printf ("Data Pointer at: %d\n", current_data);
+        // If current_data < 0, error
         if (current_data < 0) {
             break;
         }
