@@ -45,17 +45,24 @@ int main (int argc, char **argv) {
     current_data = 0;
     while (fscanf (src->file, "%c", &inst) == 1) {
         // If instruction doesn't match one of the characters, skip
-        if ((inst != '>') && (inst != '<') && (inst != '+') && (inst != '-') && (inst != '.') && (inst != ',') && (inst != '[') && (inst != ']')) continue;
+        if ((inst != '>') && (inst != '<') && (inst != '+') && (inst != '-') && (inst != '.') && (inst != ',') && (inst != '[') && (inst != ']')) {
+            continue;
+        }
         // Make room for one more instruction
         inst_count++;
         src->insts = (instruction_t *) realloc (src->insts, inst_count * sizeof (instruction_t));
         // Get the appropriate instruction
         *((src->insts) + (inst_count - 1)) = ((inst == '>') ? RIGHT : (inst == '<') ? LEFT : (inst == '+') ? INC : (inst == '-') ? DEC : (inst == '.') ? OUT : (inst == ',') ? IN : (inst == '[') ? LOOP_START : LOOP_END);
         // If it's a RIGHT increment current_data, LEFT decrements
-        if (*((src->insts) + (inst_count - 1)) == RIGHT) current_data++;
-        else if (*((src->insts) + (inst_count - 1)) == LEFT) current_data--;
+        if (*((src->insts) + (inst_count - 1)) == RIGHT) {
+            current_data++;
+        } else if (*((src->insts) + (inst_count - 1)) == LEFT) {
+            current_data--;
+        }
         // If current_data = data_size, increment data_size
-        if (current_data == data_size) data_size++;
+        if (current_data == data_size) {
+            data_size++;
+        }
         // If current_data < 0, error
         switch (*((src->insts)) + (inst_count - 1)) {
             case RIGHT:
@@ -88,7 +95,9 @@ int main (int argc, char **argv) {
         }
         printf ("Data size:       %d\n", data_size);
         printf ("Data Pointer at: %d\n", current_data);
-        if (current_data < 0) break;
+        if (current_data < 0) {
+            break;
+        }
     }
 
     if (current_data < 0) {
