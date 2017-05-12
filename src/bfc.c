@@ -59,28 +59,28 @@ int main (int argc, char **argv) {
         // If current_data < 0, error
         switch (*((src->insts)) + (inst_count - 1)) {
             case RIGHT:
-                printf ("Instruction: >\n");
+                printf ("%c : >\n", inst);
                 break;
             case LEFT:
-                printf ("Instruction: <\n");
+                printf ("%c : <\n", inst);
                 break;
             case INC:
-                printf ("Instruction: +\n");
+                printf ("%c : +\n", inst);
                 break;
             case DEC:
-                printf ("Instruction: -\n");
+                printf ("%c : -\n", inst);
                 break;
             case OUT:
-                printf ("Instruction: .\n");
+                printf ("%c : .\n", inst);
                 break;
             case IN:
-                printf ("Instruction: ,\n");
+                printf ("%c : ,\n", inst);
                 break;
             case LOOP_START:
-                printf ("Instruction: [\n");
+                printf ("%c : [\n", inst);
                 break;
             case LOOP_END:
-                printf ("Instruction: ]\n");
+                printf ("%c : ]\n", inst);
                 break;
             default:
                 break;
