@@ -50,9 +50,7 @@ int main (int argc, char **argv) {
         inst_count++;
         src->insts = (instruction_t *) realloc (src->insts, inst_count * sizeof (instruction_t));
         // Get the appropriate instruction
-        *((src->insts) + (inst_count - 1)) = ((inst == '>') ? RIGHT : (inst == '<') ? LEFT : (inst == '+') ? INC : (inst == '-') ? DEC : (inst == '.') ? OUT : (inst == ',') ? IN : (inst == '[') ? LOOP_START : (inst == ']') ? LOOP_END : NOP);
-        // If it's a NOP, ignore
-        inst_count -= (*((src->insts) + (inst_count - 1)) == NOP) ? 1 : 0;
+        *((src->insts) + (inst_count - 1)) = ((inst == '>') ? RIGHT : (inst == '<') ? LEFT : (inst == '+') ? INC : (inst == '-') ? DEC : (inst == '.') ? OUT : (inst == ',') ? IN : (inst == '[') ? LOOP_START : LOOP_END);
         // If it's a RIGHT increment current_data, LEFT decrements
         if (*((src->insts) + (inst_count - 1)) == RIGHT) current_data++;
         else if (*((src->insts) + (inst_count - 1)) == LEFT) current_data--;
