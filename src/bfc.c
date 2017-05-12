@@ -132,7 +132,7 @@ int main (int argc, char **argv) {
             case LOOP_START:
                 fprintf (out, ".loop%d:\n", loop_counter);
                 loop_counter++;
-                current_loop = loop_counter;
+                current_loop = loop_counter - 1;
                 break;
             case LOOP_END:
                 fprintf (out, "mov rdx, [data + r15]\n");
