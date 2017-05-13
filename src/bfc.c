@@ -46,6 +46,8 @@ int main (int argc, char **argv) {
     while (fscanf (src->file, "%c", &inst) == 1) {
         // If instruction doesn't match one of the characters, skip
         if ((inst != '>') && (inst != '<') && (inst != '+') && (inst != '-') && (inst != '.') && (inst != ',') && (inst != '[') && (inst != ']')) {
+            // FIX THIS BUG, WONT WORK WITHOUT A PRINTF HERE-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            printf ("%c", 0x00);
             continue;
         }
         // Make room for one more instruction
