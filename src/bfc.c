@@ -47,7 +47,7 @@ int main (int argc, char **argv) {
         // If instruction doesn't match one of the characters, skip
         if ((inst != '>') && (inst != '<') && (inst != '+') && (inst != '-') && (inst != '.') && (inst != ',') && (inst != '[') && (inst != ']')) {
             // FIX THIS BUG, WONT WORK WITHOUT A PRINTF HERE-------------------------------------------------------------------------------------------------------------------------------------------------------------------
-            //printf ("%c", 0x00);
+            printf ("%c", 0x00);
             continue;
         }
         // Make room for one more instruction
