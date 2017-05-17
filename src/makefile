@@ -1,11 +1,16 @@
-OBJS = bfc.o
+OUT = ../bin
+OBJS = $(OUT)/bfc.o
 CC = gcc
 CFLAGS = -Wall -Wextra -pedantic-errors -std=c99 -c
 
-bfc: $(OBJS)
-	$(CC) $(OBJS) -o bfc
+$(OUT)/bfc: $(OBJS)
+	$(CC) $(OBJS) -o $(OUT)/bfc
 
-bfc.o: bfc.c bfc.h
-	$(CC) $(CFLAGS) bfc.c
+$(OUT)/bfc.o: bfc.c bfc.h
+	$(CC) $(CFLAGS) bfc.c -o $(OUT)/bfc.o
 
-all: bfc
+all: $(OUT)/bfc
+
+clean:
+	rm -rf ../bin/
+	sh init.sh

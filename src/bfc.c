@@ -47,7 +47,7 @@ int main (int argc, char **argv) {
         // If instruction doesn't match one of the characters, skip
         if ((inst != '>') && (inst != '<') && (inst != '+') && (inst != '-') && (inst != '.') && (inst != ',') && (inst != '[') && (inst != ']')) {
             // FIX THIS BUG, WONT WORK WITHOUT A PRINTF HERE-------------------------------------------------------------------------------------------------------------------------------------------------------------------
-            printf ("%c", 0x00);
+            //printf ("%c", 0x00);
             continue;
         }
         // Make room for one more instruction
@@ -76,7 +76,6 @@ int main (int argc, char **argv) {
         // Free all data from heap
         fclose (src->file);
         free (src->insts);
-        free (src->data);
         free (src);
         return -1;
     }
