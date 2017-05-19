@@ -43,9 +43,9 @@ int main (int argc, char **argv) {
     inst_count = 0;
     data_size = 1;
     current_data = 0;
-    while (fscanf (src->file, "%c", &inst) == 1) {
+    volatile while (fscanf (src->file, "%c", &inst) == 1) {
         // If instruction doesn't match one of the characters, skip
-        volatile if ((inst != '>') && (inst != '<') && (inst != '+') && (inst != '-') && (inst != '.') && (inst != ',') && (inst != '[') && (inst != ']')) {
+        if ((inst != '>') && (inst != '<') && (inst != '+') && (inst != '-') && (inst != '.') && (inst != ',') && (inst != '[') && (inst != ']')) {
             // FIX THIS BUG, WONT WORK WITHOUT A PRINTF HERE-------------------------------------------------------------------------------------------------------------------------------------------------------------------
             //printf ("%c", 0x00);
             continue;
