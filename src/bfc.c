@@ -11,7 +11,7 @@ void help () {
 
 int main (int argc, char **argv) {
     file_t *src;
-    char inst;
+    volatile char inst;
     int inst_count;
     int data_size;
     int current_data;
@@ -43,11 +43,9 @@ int main (int argc, char **argv) {
     inst_count = 0;
     data_size = 1;
     current_data = 0;
-    volatile while (fscanf (src->file, "%c", &inst) == 1) {
+    while (fscanf (src->file, "%c", &inst) == 1) {
         // If instruction doesn't match one of the characters, skip
         if ((inst != '>') && (inst != '<') && (inst != '+') && (inst != '-') && (inst != '.') && (inst != ',') && (inst != '[') && (inst != ']')) {
-            // FIX THIS BUG, WONT WORK WITHOUT A PRINTF HERE-------------------------------------------------------------------------------------------------------------------------------------------------------------------
-            //printf ("%c", 0x00);
             continue;
         }
         // Make room for one more instruction
