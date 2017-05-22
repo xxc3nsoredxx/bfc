@@ -44,28 +44,29 @@ int main (int argc, char **argv) {
     data_size = 1;
     current_data = 0;
     while (fscanf (src->file, "%c", &inst) == 1) {
-        // If instruction doesn't match one of the characters, skip
-        if ((inst != '>') && (inst != '<') && (inst != '+') && (inst != '-') && (inst != '.') && (inst != ',') && (inst != '[') && (inst != ']')) {
-            continue;
-        }
-        // Make room for one more instruction
-        inst_count++;
-        src->insts = (instruction_t *) realloc (src->insts, inst_count * sizeof (instruction_t));
-        // Get the appropriate instruction
-        *((src->insts) + (inst_count - 1)) = ((inst == '>') ? RIGHT : (inst == '<') ? LEFT : (inst == '+') ? INC : (inst == '-') ? DEC : (inst == '.') ? OUT : (inst == ',') ? IN : (inst == '[') ? LOOP_START : LOOP_END);
-        // If it's a RIGHT increment current_data, LEFT decrements
-        if (*((src->insts) + (inst_count - 1)) == RIGHT) {
-            current_data++;
-        } else if (*((src->insts) + (inst_count - 1)) == LEFT) {
-            current_data--;
-        }
-        // If current_data = data_size, increment data_size
-        if (current_data == data_size) {
-            data_size++;
-        }
-        // If current_data < 0, error
-        if (current_data < 0) {
-            break;
+        // Test if the instruction matches a valid instruction
+        if ((inst == '>') || (inst == '<') || (inst == '+') || (inst == '-') || (inst == '.') || (inst == ',') || (inst == '[') || (inst == ']')) {
+            // Make room for one more instruction
+            inst_count++;
+            src->insts = (instruction_t *) realloc (src->insts, inst_count * sizeof (instruction_t));
+            // Get the appropriate instruction
+            *((src->insts) + (inst_count - 1)) = ((inst == '>') ? RIGHT : (inst == '<') ? LEFT : (inst == '+') ? INC : (inst == '-') ? DEC : (inst == '.') ? OUT : (inst == ',') ? IN : (inst == '[') ? LOOP_START : LOOP_END);
+            // If it's a RIGHT increment current_data, LEFT decrements
+            if (*((src->insts) + (inst_count - 1)) == RIGHT) {
+                current_data++;
+            } else if (*((src->insts) + (inst_count - 1)) == LEFT) {
+                current_data--;
+            }
+            // If current_data = data_size, increment data_size
+            if (current_data == data_size) {
+                data_size++;
+            }
+            // If current_data < 0, error
+            if (current_data < 0) {
+                break;
+            }
+        } else {
+            __asm volatile ("nop");
         }
     }
 
