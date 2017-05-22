@@ -44,7 +44,8 @@ int main (int argc, char **argv) {
     data_size = 1;
     current_data = 0;
     // PROBLEMATIC -----------------------------------------------------------------------------------------
-    while (fscanf (src->file, "%c", &inst) == 1) {
+    inst = fgetc (src->file);
+    while (inst != EOF) {
         // Test if the instruction matches a valid instruction
         if ((inst == '>') || (inst == '<') || (inst == '+') || (inst == '-') || (inst == '.') || (inst == ',') || (inst == '[') || (inst == ']')) {
             // Make room for one more instruction
@@ -66,10 +67,8 @@ int main (int argc, char **argv) {
             if (current_data < 0) {
                 break;
             }
-        } else {
-            // printf (" ");
-            __asm volatile ("nop");
         }
+        inst = fgetc (src->file);
     }
     // PROBLEMATIC -----------------------------------------------------------------------------------------
 
@@ -82,8 +81,6 @@ int main (int argc, char **argv) {
         return -1;
     }
 
-    src->data = (char *) calloc (data_size, 1);
-
     // Open the output file
     out = fopen ("out.asm", "w");
     if (!out) {
@@ -91,7 +88,6 @@ int main (int argc, char **argv) {
         // Free all data from heap
         fclose (src->file);
         free (src->insts);
-        free (src->data);
         free (src);
         return -1;
     }
@@ -180,7 +176,6 @@ int main (int argc, char **argv) {
     // Free all data from heap
     fclose (src->file);
     free (src->insts);
-    free (src->data);
     free (src);
     free (out);
 
