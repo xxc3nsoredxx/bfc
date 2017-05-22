@@ -177,7 +177,7 @@ int main (int argc, char **argv) {
     fclose (src->file);
     free (src->insts);
     free (src);
-    free (out);
+    fclose (out);
 
     return 0;
 }
