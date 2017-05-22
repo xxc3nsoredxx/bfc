@@ -43,6 +43,7 @@ int main (int argc, char **argv) {
     inst_count = 0;
     data_size = 1;
     current_data = 0;
+    // PROBLEMATIC -----------------------------------------------------------------------------------------
     while (fscanf (src->file, "%c", &inst) == 1) {
         // Test if the instruction matches a valid instruction
         if ((inst == '>') || (inst == '<') || (inst == '+') || (inst == '-') || (inst == '.') || (inst == ',') || (inst == '[') || (inst == ']')) {
@@ -69,6 +70,7 @@ int main (int argc, char **argv) {
             __asm volatile ("nop");
         }
     }
+    // PROBLEMATIC -----------------------------------------------------------------------------------------
 
     if (current_data < 0) {
         printf ("Error: Data pointer out of bounds\n");
