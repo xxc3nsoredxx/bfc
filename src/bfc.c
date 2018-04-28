@@ -150,12 +150,16 @@ int main (int argc, char **argv) {
                 break;
             case LOOP_START:
                 fprintf (out, ".loop%d:\n", loop_counter);
+                fprintf (out, "mov rdx, [data + r15]\n");
+                fprintf (out, "cmp rdx, 0\n");
+                fprintf (out, "jz .loop%d_end\n", loop_counter);
                 loop_counter++;
                 current_loop = loop_counter - 1;
                 break;
             case LOOP_END:
                 fprintf (out, "mov rdx, [data + r15]\n");
                 fprintf (out, "jnz .loop%d\n", current_loop);
+                fprintf (out, ".loop%d_end:\n", current_loop);
                 current_loop--;
                 break;
             default:
